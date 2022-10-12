@@ -30,7 +30,7 @@ $con = mysqli_connect($palvelin, $kayttajanimi, $salasana, $tietokanta, $portti)
         <?php
         
             $valittukoko = $_POST['kokovalinta'];
-            $valittukoko_haku = mysqli_query($con,$valittukoko);
+            #$valittukoko_haku = mysqli_query($con,$valittukoko);
             
             $sql = $valittukoko;
             $result = mysqli_query($con, $sql); // First parameter is just return of "mysqli_connect()" function
@@ -46,21 +46,17 @@ $con = mysqli_connect($palvelin, $kayttajanimi, $salasana, $tietokanta, $portti)
             echo "</table>";
         ?>
 
-        <?php 
-        
-        $valittukoko = $_POST['kokovalinta'];
-        echo $valittukoko;
-        ?>
-        <select>Järjestys
-        <option value = "">Valitse</option>
-        <option value="Nimi A-Z" <?php if(isset($_GET['sort_n']) && $_GET['sort_n'] == "hinta"){echo "valittu"; } ?>>Nimen mukaan A-Z</option>
-        <option>Nimen mukaan</option>
-
-        </select>
         
     </form>
+    <form action="" method="GET">
+    
+        <select name="sort_numeric">Valitse
+            <option value="halvin" <?php if(isset($_GET['sort_numeric']) && $_GET['sort_numeric'] == "halvin") { echo "selected"; } ?> >Halvin ensin</option>
+            <option value="kallein" <?php if(isset($_GET['sort_numeric']) && $_GET['sort_numeric'] == "kallein") { echo "selected"; } ?> >Kallein ensin</option>
+        </select>
+        <button type="submit">Valitse</button>
 
-
+    </form>
     
 
 
