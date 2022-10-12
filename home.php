@@ -11,9 +11,9 @@ $con = mysqli_connect($palvelin, $kayttajanimi, $salasana, $tietokanta, $portti)
 <?php
 #tehdään rengashaku kokoluokittain
 $sql_koko = "SELECT * FROM renkaat GROUP BY koko";
-$sql_tyyppi = "SELECT * FROM renkaat GROUP BY tyyppi";
+#$sql_tyyppi = "SELECT * FROM renkaat GROUP BY tyyppi";
 
-$kaikki_tyypit = mysqli_query($con,$sql_tyyppi);
+#$kaikki_tyypit = mysqli_query($con,$sql_tyyppi);
 $kaikki_koot = mysqli_query($con,$sql_koko);
 ?>
 
@@ -54,7 +54,7 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
             </ul>
         </div>
 
-        <form action="/renkaat/resultpage.php" method="post">
+        <form action="result.php" method="post">
             <label for="renkaat">Valitse koko</label>
             <select name="renkaat" id="renkaat">
             <option>Valitse</option>
@@ -76,9 +76,11 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
             <input type="submit" name="submit"  id="submit" value="OK">
             <p id="varoitus"></p>
             <br>
- 
-            
+
+            <?php echo $renkaat["Koko"]; ?>
         </form>
+
+
 
     <!-- video alla -->
     <!-- <iframe width="420" height="345" src="https://www.youtube.com/embed/89rghWSBFgE" title="How to change a tyre" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
