@@ -71,7 +71,7 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
             endwhile;
             ?>
             
-            <input type="text" id="kokovalinta" name="kokovalinta" placeholder="kokovalinta"> <!--muista hidden!-->
+            <input type="text" id="kokovalinta" name="kokovalinta" placeholder="kokovalinta" hidden> <!--muista hidden!-->
             
             <input type="submit" name="submit"  id="submit" value="OK">
             <p id="varoitus"></p>
