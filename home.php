@@ -57,16 +57,18 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
         <form action="" method="GET">
             <label for="renkaat">Valitse koko</label>
                 <select name="renkaat" id="renkaat">
-                    <option>Valitse</option>
-                        <?php 
+                <option>Valitse</option>
+                <?php 
                         while ($renkaat = mysqli_fetch_array($kaikki_koot,MYSQLI_ASSOC)):;
                         ?>
                         <option value="<?php echo $renkaat["Koko"];?>">
-                        <?php echo $renkaat["Koko"];?>
-                    </option>
-                <?php
-                endwhile;
+                        <?php echo $renkaat["Koko"]; ?>
+                        </option>
+                        <?php
+                        endwhile;
                 ?>
+
+              
                 
                 <br>
                 <?php
@@ -106,7 +108,7 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
                         </tr>
                     </thead>
                     <tbody>
-                        
+
                     <?php
                     if(isset($_GET['renkaat']))
                     {
