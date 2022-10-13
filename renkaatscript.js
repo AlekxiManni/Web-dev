@@ -5,11 +5,11 @@ var koko;
     document.getElementById("renkaat").addEventListener('change' , function(e) {
     koko = (e.target.options[e.target.selectedIndex].text)
     vaihdaKoko();
+    
     })
 
 
 function vaihdaKoko(){
-    
     var tulos = "SELECT Merkki,Malli,Tyyppi,Koko,Hinta FROM renkaat WHERE koko = " + "'" + koko + "'";
 
     kokovalinta.value = tulos;
@@ -20,6 +20,9 @@ function vaihdaKoko(){
     else{
         painike.disabled = false;
     }
+    
 }
+
+
 
     

@@ -54,31 +54,92 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
             </ul>
         </div>
 
-        <form action="result.php" method="post">
+        <form action="" method="GET">
             <label for="renkaat">Valitse koko</label>
-            <select name="renkaat" id="renkaat">
-            <option>Valitse</option>
-            <?php 
-            while ($renkaat = mysqli_fetch_array($kaikki_koot,MYSQLI_ASSOC)):;
-            ?>
-            <option value="<?php echo $renkaat["Koko"]; #RengasID
-            ?>">
-            <?php echo $renkaat["Koko"];
-            ?>
+                <select name="renkaat" id="renkaat">
+                    <option>Valitse</option>
+                        <?php 
+                        while ($renkaat = mysqli_fetch_array($kaikki_koot,MYSQLI_ASSOC)):;
+                        ?>
+                        <option value="<?php echo $renkaat["Koko"];?>">
+                        <?php echo $renkaat["Koko"];?>
+                    </option>
+                <?php
+                endwhile;
+                ?>
+                
+                <br>
+                <?php
+                            $sort_option = "";
+                                if(isset($_GET['sort'])){
+                                    if($_GET['sort'] == "a-z")
+                                    {
+                                        $sort_option = "ORDER BY merkki ASC";
+                                    }
+                                    elseif($_GET['sort'] == "z-a"){
+                                        $sort_option = "ORDER BY merkki DESC";
+                                    }
+                                    elseif($_GET['sort'] == "Kallein ensin"){
+                                        $sort_option = "ORDER BY hinta DESC";
+                                    }
+                                    elseif($_GET['sort'] == "Halvin ensin"){
+                                        $sort_option = "ORDER BY hinta ASC";
+                                    }
+                                }
+                ?>
+                </select>
+                <select name="sort">
+                    <option value="a-z" <?php if(isset($_GET['sort']) && $_GET['sort'] == "a-z") {echo "selected"; } ?>>A-Z</option>
+                    <option value="z-a" <?php if(isset($_GET['sort']) && $_GET['sort'] == "z-a") {echo "selected"; } ?>>Z-A</option>
+                    <option value="Kallein ensin" <?php if(isset($_GET['sort']) && $_GET['sort'] == "Kallein ensin") {echo "selected"; } ?>>Kallein ensin</option>
+                    <option value="Halvin ensin" <?php if(isset($_GET['sort']) && $_GET['sort'] == "Halvin ensin") {echo "selected"; } ?>>Halvin ensin</option>
+                    </select>
+                <input type="submit" name="submit"  id="submit" value="OK">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Merkki</th>
+                            <th>Malli</th>
+                            <th>Tyyppi</th>
+                            <th>Koko</th>
+                            <th>Hinta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    $renkaat = $_GET['renkaat'];
+                    $sqlvalittukoko = "SELECT * FROM renkaat WHERE koko = '$renkaat' $sort_option";
+                    
+                    echo $sqlvalittukoko;
+                    echo "<br>";
+                    echo "ylhäällä query---------------testipalikka---------------- <br>";
 
-            </option>
-            <?php
-            endwhile;
-            ?>
-            
-            <input type="text" id="kokovalinta" name="kokovalinta" placeholder="kokovalinta" hidden> <!--muista hidden!-->
-            
-            <input type="submit" name="submit"  id="submit" value="OK">
-            <p id="varoitus"></p>
-            <br>
+                    $query_run = mysqli_query($con, $sqlvalittukoko);
 
-            <?php echo $renkaat["Koko"]; ?>
-        </form>
+                    if(mysqli_num_rows($query_run) > 0)
+                    {
+                        foreach($query_run as $row)
+                        {
+                            ?>
+                                <tr>
+                                    <td><?= $row['Merkki'];?></td>
+                                    <td><?= $row['Malli'];?></td>
+                                    <td><?= $row['Tyyppi'];?></td>
+                                    <td><?= $row['Koko'];?></td>
+                                    <td><?= $row['Hinta'];?></td>
+                                </tr>
+                            <?php
+                        }
+                    }
+                    else
+                    {
+                        echo "no record found";
+                    }
+                    ?>
+                    </tbody>
+                </table>
+
+
 
 
 
