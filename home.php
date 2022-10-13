@@ -106,35 +106,39 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
                         </tr>
                     </thead>
                     <tbody>
+                        
                     <?php
-                    $renkaat = $_GET['renkaat'];
-                    $sqlvalittukoko = "SELECT * FROM renkaat WHERE koko = '$renkaat' $sort_option";
-                    
-                    echo $sqlvalittukoko;
-                    echo "<br>";
-                    echo "ylhäällä query---------------testipalikka---------------- <br>";
-
-                    $query_run = mysqli_query($con, $sqlvalittukoko);
-
-                    if(mysqli_num_rows($query_run) > 0)
+                    if(isset($_GET['renkaat']))
                     {
-                        foreach($query_run as $row)
-                        {
-                            ?>
-                                <tr>
-                                    <td><?= $row['Merkki'];?></td>
-                                    <td><?= $row['Malli'];?></td>
-                                    <td><?= $row['Tyyppi'];?></td>
-                                    <td><?= $row['Koko'];?></td>
-                                    <td><?= $row['Hinta'];?></td>
-                                </tr>
-                            <?php
-                        }
-                    }
-                    else
-                    {
-                        echo "no record found";
-                    }
+                            $renkaat = $_GET['renkaat'];
+                            $sqlvalittukoko = "SELECT * FROM renkaat WHERE koko = '$renkaat' $sort_option";
+                            
+                            echo $sqlvalittukoko;
+                            echo "<br>";
+                            echo "ylhäällä query---------------testipalikka---------------- <br>";
+
+                            $query_run = mysqli_query($con, $sqlvalittukoko);
+
+                            if(mysqli_num_rows($query_run) > 0)
+                            {
+                                foreach($query_run as $row)
+                                {
+                                    ?>
+                                        <tr>
+                                            <td><?= $row['Merkki'];?></td>
+                                            <td><?= $row['Malli'];?></td>
+                                            <td><?= $row['Tyyppi'];?></td>
+                                            <td><?= $row['Koko'];?></td>
+                                            <td><?= $row['Hinta'];?></td>
+                                        </tr>
+                                    <?php
+                                }
+                            }
+                            else
+                            {
+                                echo "no record found";
+                            }
+                    }    
                     ?>
                     </tbody>
                 </table>
