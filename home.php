@@ -55,20 +55,14 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
         </div>
 
         <form action="" method="GET">
-            <label for="renkaat">Valitse koko</label>
-                <select name="renkaat" id="renkaat">
-                <option>Valitse</option>
-                <?php 
-                        while ($renkaat = mysqli_fetch_array($kaikki_koot,MYSQLI_ASSOC)):;
-                        ?>
-                        <option value="<?php echo $renkaat["Koko"];?>">
-                        <?php echo $renkaat["Koko"]; ?>
-                        </option>
-                        <?php
-                        endwhile;
-                ?>
-
-              
+            <select name="renkaat" id="renkaat">
+                <option selected="selected" value="test">Valitse</option>
+                    <?php
+                    foreach($kaikki_koot as $koko) { ?>
+                    <option value="<?php echo $koko['Koko'] ?>"><?php echo $koko['Koko'] ?> </option>
+                    <?php
+                    } ?>
+                    </select> 
                 
                 <br>
                 <?php
@@ -113,7 +107,11 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
                     if(isset($_GET['renkaat']))
                     {
                             $renkaat = $_GET['renkaat'];
+                            //$valittuTieto = "";
                             $sqlvalittukoko = "SELECT * FROM renkaat WHERE koko = '$renkaat' $sort_option";
+                            // if($_GET['renkaat'] == 'test'){
+                            //     $sqlvalittukoko = "SELECT * FROM renkaat WHERE koko = '$str' $sort_option";
+                            // }
                             
                             echo $sqlvalittukoko;
                             echo "<br>";
@@ -138,14 +136,30 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
                             }
                             else
                             {
-                                echo "no record found";
+                                echo "No record found";
                             }
                     }    
                     ?>
                     </tbody>
                 </table>
-
-
+                <?php  
+                if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')   
+                    $url = "https://";   
+                else  
+                    $url = "http://";   
+                // Append the host(domain name, ip) to the URL.   
+                $url.= $_SERVER['HTTP_HOST'];   
+                
+                // Append the requested resource location to the URL   
+                $url.= $_SERVER['REQUEST_URI'];    
+                
+                echo "<br>";
+                $urlpienempi = substr($url, 41,11);
+                $siivottu = substr_replace($urlpienempi,'/' ,3,1);
+                $str = substr_replace($siivottu,'/' ,3,-5);
+                echo $str;
+               
+                ?>
 
     <!-- mitä -->
     <!-- video alla -->
