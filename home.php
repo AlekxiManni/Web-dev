@@ -55,11 +55,46 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
         </div>
 
         <form action="" method="GET">
+
+            <?php 
+
+            //HAKEE VALINTALISTAN VALITUN KOON
+            // $valittu_valintalistan_koko = $_GET['renkaat'];
+            // echo  "valittu valintalistan koko = " . $valittu_valintalistan_koko;        
+            
+            
+            //yritetty tehdä ratkaisua rengasvalintalistaan että saisi jäämään valitun renkaan koko listaan submitin jälkeen, ei toimi
+            $valittu_valintalistan_koko = "asdasdasd";
+            if(isset($_GET['renkaat']))
+            {
+                //echo "ylempi" . $valittu_valintalistan_koko = $_GET['renkaat'];
+
+                if($_GET['renkaat'] == 'test'){
+                    $valittu_valintalistan_koko = "test";
+                    //echo $valittu_valintalistan_koko;
+                }
+                else{
+                    $valittu_valintalistan_koko = $_GET['renkaat'];
+                    //echo "alemmpi" . $valittu_valintalistan_koko = $_GET['renkaat'];
+                }
+            }
+            echo $valittu_valintalistan_koko;
+
+
+            ?>
+
+
+
+
+
+
+
+
             <select name="renkaat" id="renkaat">
-                <option selected="selected" value="test">Valitse</option>
+                <option selected="selected" value="test" >Valitse</option>
                     <?php
                     foreach($kaikki_koot as $koko) { ?>
-                    <option value="<?php echo $koko['Koko'] ?>"><?php echo $koko['Koko'] ?> </option>
+                    <option value="<?php echo $koko['Koko'] ?>"><?php echo $koko['Koko'] ?></option>
                     <?php
                     } ?>
                     </select> 
@@ -82,6 +117,7 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
                                         $sort_option = "ORDER BY hinta ASC";
                                     }
                                 }
+                        echo $sort_option;
                 ?>
                 </select>
                 <select name="sort">
@@ -107,11 +143,9 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
                     if(isset($_GET['renkaat']))
                     {
                             $renkaat = $_GET['renkaat'];
-                            //$valittuTieto = "";
+                            
                             $sqlvalittukoko = "SELECT * FROM renkaat WHERE koko = '$renkaat' $sort_option";
-                            // if($_GET['renkaat'] == 'test'){
-                            //     $sqlvalittukoko = "SELECT * FROM renkaat WHERE koko = '$str' $sort_option";
-                            // }
+                            
                             
                             echo $sqlvalittukoko;
                             echo "<br>";
@@ -160,10 +194,10 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
                 echo $str;
                
                 ?>
-
+        
     <!-- mitä -->
     <!-- video alla -->
     <!-- <iframe width="420" height="345" src="https://www.youtube.com/embed/89rghWSBFgE" title="How to change a tyre" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-    
+        </form>
     </body>
 </html>
