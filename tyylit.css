@@ -1,25 +1,66 @@
 body{
-    background-color: #f5f5f5;
+    background-color: #454c53;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    color:#070707
+    color:#070707;
+    /* background-image: url("https://i.ibb.co/82VK0TJ/arseny-togulev-x-TXIAVRI3r-A-unsplash.jpg"); */
 }
 .yhteystiedot{
-    background-color: #034001;
-} 
+    background-color: #012840;
+    /* text-shadow: 1px 1px 1px white; */
+    width: 330px;
+    height: 160px;
+    border: 5px solid #023059; 
+}
 
- h1{
+.yhteystiedot ul{
+    font-family: 'Racing Sans One', sans-serif;
+}
+
+.yhteystiedot li{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+
+h1, h2{
+    text-align: center;
+    margin: auto;
     background-color: #F205B3;
     font-family: 'Racing Sans One', sans-serif;
 }
 
+.container{
+    
+    font-size: 14px;
+    margin:auto;
+    text-align: center;
+    background-color: #F205B3;
 
+}
 
+#tulostaulu{
+    border-collapse: collapse;
+    width: 25em;
+    margin: 25px auto;
+    margin-left: auto;
+    margin-right: auto;
+}
 
+#tulostaulu table, th, td{
+    color:#034001;
+    border: 1px solid #034001;
 
-/* .varit{
+}
+
+.video{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.varit{
     color: #F205B3;
     color: #012326;
     color: #034001;
     color: #012840;
     color: #023059;
-} */
+}
