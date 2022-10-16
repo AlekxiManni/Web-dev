@@ -57,35 +57,22 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
         <form action="" method="GET">
 
             <?php 
-
             //HAKEE VALINTALISTAN VALITUN KOON
-            // $valittu_valintalistan_koko = $_GET['renkaat'];
-            // echo  "valittu valintalistan koko = " . $valittu_valintalistan_koko;        
-            
-            
-            //yritetty tehdä ratkaisua rengasvalintalistaan että saisi jäämään valitun renkaan koko listaan submitin jälkeen, ei toimi
-            $valittu_valintalistan_koko = "asdasdasd";
+            $valittu_valintalistan_koko = "EI VALINTAA";
             if(isset($_GET['renkaat']))
             {
                 //echo "ylempi" . $valittu_valintalistan_koko = $_GET['renkaat'];
 
-                if($_GET['renkaat'] == 'test'){
+                if($_GET['renkaat'] == 'asd'){
                     $valittu_valintalistan_koko = "test";
                     //echo $valittu_valintalistan_koko;
                 }
                 else{
-                    $valittu_valintalistan_koko = $_GET['renkaat'];
-                    //echo "alemmpi" . $valittu_valintalistan_koko = $_GET['renkaat'];
+                        $valittu_valintalistan_koko = $_GET['renkaat'];
+                   
                 }
             }
-            echo $valittu_valintalistan_koko;
-
-
             ?>
-
-
-
-
 
 
 
@@ -93,8 +80,8 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
             <select name="renkaat" id="renkaat">
                 <option selected="selected" value="test" >Valitse</option>
                     <?php
-                    foreach($kaikki_koot as $koko) { ?>
-                    <option value="<?php echo $koko['Koko'] ?>"><?php echo $koko['Koko'] ?></option>
+                    foreach($kaikki_koot as $valinta) { ?>
+                    <option value="<?php echo $valinta['Koko'] ?>" <?php if(isset($_GET['renkaat']) && $_GET['renkaat'] == $valinta['Koko']) {echo "selected"; } ?> > <?php echo $valinta['Koko']?>  </option>
                     <?php
                     } ?>
                     </select> 
@@ -176,24 +163,7 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
                     ?>
                     </tbody>
                 </table>
-                <?php  
-                if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')   
-                    $url = "https://";   
-                else  
-                    $url = "http://";   
-                // Append the host(domain name, ip) to the URL.   
-                $url.= $_SERVER['HTTP_HOST'];   
-                
-                // Append the requested resource location to the URL   
-                $url.= $_SERVER['REQUEST_URI'];    
-                
-                echo "<br>";
-                $urlpienempi = substr($url, 41,11);
-                $siivottu = substr_replace($urlpienempi,'/' ,3,1);
-                $str = substr_replace($siivottu,'/' ,3,-5);
-                echo $str;
                
-                ?>
         
     <!-- mitä -->
     <!-- video alla -->
