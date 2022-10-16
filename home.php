@@ -11,21 +11,17 @@ $con = mysqli_connect($palvelin, $kayttajanimi, $salasana, $tietokanta, $portti)
 <?php
 #tehdään rengashaku kokoluokittain
 $sql_koko = "SELECT * FROM renkaat GROUP BY koko";
-#$sql_tyyppi = "SELECT * FROM renkaat GROUP BY tyyppi";
-
-#$kaikki_tyypit = mysqli_query($con,$sql_tyyppi);
 $kaikki_koot = mysqli_query($con,$sql_koko);
 ?>
 
-<!-- HTML sivu -->
-
+<!-- TEHTÄVÄNANTO -->
 <!-- Tehtävänäsi on luoda sivusto, jonka avulla voidaan etsiä tietokannasta erilaisiin autoihin sopivat oikean kokoiset kesä- tai talvirenkaat.
 Sivulla valitaan valintalistasta renkaan eri koot ja vastauksena saadaan tietokannasta kyseisen koon renkaat hintoineen.
 Vastauksena saadut renkaat pitää pystyä lajittelemaan rengasmerkin tai hinnan mukaan.
 Sivuston rakenteen voit päättää itse ja sivua voi elävöittää palvelimen kuvakansiosta löytyvillä kuvilla sekä grafiikalla.
 Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toimipisteen karttakuva ja kaksi sesonkimainosta (nämä ovat valmiita kuvia kuvakansiosta). -->
 
-
+<!-- HTML sivu -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -57,120 +53,142 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
         <?php 
         //HAKEE VALINTALISTAN VALITUN KOON
         $valittu_valintalistan_koko = "EI VALINTAA";
-        if(isset($_GET['renkaat']))
-        {
-            if($_GET['renkaat'] == 'index0'){
-                $valittu_valintalistan_koko = "index0";
-            }
-            else
+            if(isset($_GET['renkaat']))
             {
-                    $valittu_valintalistan_koko = $_GET['renkaat'];
+                if($_GET['renkaat'] == 'index0'){
+                    $valittu_valintalistan_koko = "index0";
+                }
+                else
+                {
+                        $valittu_valintalistan_koko = $_GET['renkaat'];
+                }
             }
-        }
         ?>
 
         <?php
-                $type_option = "";
-                    if(isset($_GET['type'])){
-                        if($_GET['type'] == "Kesä")
-                        {
-                            $type_option = "SELECT * FROM renkaat WHERE tyyppi = 'kesä'";
-                        }
-                        elseif($_GET['type'] == "Talvi"){
-                            $type_option = "SELECT * FROM renkaat WHERE tyyppi IN ('Nasta','Kitka')";
-                        }
-                        elseif($_GET['type'] == "Kaikki"){
-                            $type_option = "SELECT * FROM renkaat WHERE tyyppi IN ('Kesä','Nasta','Kitka')";
-                        }
-                    }
-                    //echo $type_option;
+            $type_option = "";
+
+            if(isset($_GET['type'])){
+                if($_GET['type'] == "Kesä")
+                {
+                    $type_option = "SELECT * FROM renkaat WHERE tyyppi = 'kesä'";
+                }
+                elseif($_GET['type'] == "Talvi"){
+                    $type_option = "SELECT * FROM renkaat WHERE tyyppi IN ('Nasta','Kitka')";
+                }
+                elseif($_GET['type'] == "Kaikki"){
+                    $type_option = "SELECT * FROM renkaat WHERE tyyppi IN ('Kesä','Nasta','Kitka')";
+                }
+            }
+                //echo $type_option;
         ?>
-
-                    <select name="type">
-                    <option value="Kaikki" <?php if(isset($_GET['type']) && $_GET['type'] == "Kaikki") {echo "selected"; } ?>>Kaikki</option>
-                    <option value="Kesä" <?php if(isset($_GET['type']) && $_GET['type'] == "Kesä") {echo "selected"; } ?>>Kesä</option>
-                    <option value="Talvi" <?php if(isset($_GET['type']) && $_GET['type'] == "Talvi") {echo "selected"; } ?>>Talvi</option>
-                    </select>
-
+            <label for="type">Rengastyyppi</label>
+            <select name="type" id="type">
+                <option value="Kaikki" <?php if(isset($_GET['type']) && $_GET['type'] == "Kaikki") {echo "selected"; } ?>>Kaikki</option>
+                <option value="Kesä" <?php if(isset($_GET['type']) && $_GET['type'] == "Kesä") {echo "selected"; } ?>>Kesä</option>
+                <option value="Talvi" <?php if(isset($_GET['type']) && $_GET['type'] == "Talvi") {echo "selected"; } ?>>Talvi</option>
+            </select> <br>
+            <label for="renkaat">Rengaskoko</label>
             <select name="renkaat" id="renkaat">
                 <option selected="selected" value="index0" >Valitse</option>
                 <?php foreach($kaikki_koot as $valinta) { ?>
                 <option value="<?php echo $valinta['Koko'] ?>" <?php if(isset($_GET['renkaat']) && $_GET['renkaat'] == $valinta['Koko']){echo"selected";}?>><?php echo $valinta['Koko']?></option>
-                    <?php
-                    } ?>
+                <?php
+                } ?>
             </select> 
-            <?php
-                $sort_option = "";
-                    if(isset($_GET['sort'])){
-                        if($_GET['sort'] == "a-z")
+        <?php
+            $sort_option = "";
+
+            if(isset($_GET['sort'])){
+                if($_GET['sort'] == "a-z")
+                {
+                    $sort_option = "ORDER BY merkki ASC";
+                }
+                elseif($_GET['sort'] == "z-a"){
+                    $sort_option = "ORDER BY merkki DESC";
+                }
+                elseif($_GET['sort'] == "Kallein ensin"){
+                    $sort_option = "ORDER BY hinta DESC";
+                }
+                elseif($_GET['sort'] == "Halvin ensin"){
+                    $sort_option = "ORDER BY hinta ASC";
+                }
+            }
+            //echo $sort_option;
+        ?>
+            <br>
+            <label for="sort">Järjestys</label>
+            <select name="sort" id="sort">
+                <option value="Kallein ensin" <?php if(isset($_GET['sort']) && $_GET['sort'] == "Kallein ensin") {echo "selected"; } ?>>Kallein ensin</option>
+                <option value="Halvin ensin" <?php if(isset($_GET['sort']) && $_GET['sort'] == "Halvin ensin") {echo "selected"; } ?>>Halvin ensin</option>
+                <option value="a-z" <?php if(isset($_GET['sort']) && $_GET['sort'] == "a-z") {echo "selected"; } ?>>Merkki (A-Z)</option>
+                <option value="z-a" <?php if(isset($_GET['sort']) && $_GET['sort'] == "z-a") {echo "selected"; } ?>>Merkki (Z-A)</option>
+            </select>
+            
+            <input type="submit" name="submit"  id="submit" value="OK">
+            
+        <?php 
+
+            //Eräs vaihtoehto sille, että sarakkeet tulevat näkyviin vasta haun jälkeen
+            // if(isset($_GET['renkaat'])){
+            //     echo "<table>" . 
+            //     "<thead>" . 
+            //     "<tr>" . 
+            //     "<th>" . "Merkki" . "</th>" .
+            //      "<th>" . "Malli" . "</th>" .
+            //      "<th>" . "Tyyppi" . "</th>" .
+            //      "<th>" . "Koko" . "</th>" .
+            //      "<th>" . "Hinta" . "</th>" .
+            //      "</tr>" .
+            //      "<thead>";
+            // }
+        ?>
+
+
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Merkki</th>
+                        <th>Malli</th>
+                        <th>Tyyppi</th>
+                        <th>Koko</th>
+                        <th>Hinta</th>
+                    </tr>
+                </thead>
+                <tbody>
+        <?php
+                if(isset($_GET['renkaat']))
+                {
+                    $renkaat = $_GET['renkaat'];
+
+                    $sqlvalittu = "$type_option AND koko = '$renkaat' $sort_option";
+                    //echo $sqlvalittu;
+                    $query_run = mysqli_query($con, $sqlvalittu);
+
+                    if(mysqli_num_rows($query_run) > 0)
+                    {
+                        foreach($query_run as $row)
                         {
-                            $sort_option = "ORDER BY merkki ASC";
-                        }
-                        elseif($_GET['sort'] == "z-a"){
-                            $sort_option = "ORDER BY merkki DESC";
-                        }
-                        elseif($_GET['sort'] == "Kallein ensin"){
-                            $sort_option = "ORDER BY hinta DESC";
-                        }
-                        elseif($_GET['sort'] == "Halvin ensin"){
-                            $sort_option = "ORDER BY hinta ASC";
+                            ?>
+                                <tr>
+                                    <td><?= $row['Merkki'];?></td>
+                                    <td><?= $row['Malli'];?></td>
+                                    <td><?= $row['Tyyppi'];?></td>
+                                    <td><?= $row['Koko'];?></td>
+                                    <td><?= $row['Hinta'];?></td>
+                                </tr>
+                            <?php
                         }
                     }
-                    //echo $sort_option;
-                ?>
-                </select>
-                <select name="sort">
-                    <option value="a-z" <?php if(isset($_GET['sort']) && $_GET['sort'] == "a-z") {echo "selected"; } ?>>A-Z</option>
-                    <option value="z-a" <?php if(isset($_GET['sort']) && $_GET['sort'] == "z-a") {echo "selected"; } ?>>Z-A</option>
-                    <option value="Kallein ensin" <?php if(isset($_GET['sort']) && $_GET['sort'] == "Kallein ensin") {echo "selected"; } ?>>Kallein ensin</option>
-                    <option value="Halvin ensin" <?php if(isset($_GET['sort']) && $_GET['sort'] == "Halvin ensin") {echo "selected"; } ?>>Halvin ensin</option>
-                    </select>
-                <input type="submit" name="submit"  id="submit" value="OK">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Merkki</th>
-                            <th>Malli</th>
-                            <th>Tyyppi</th>
-                            <th>Koko</th>
-                            <th>Hinta</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                    if(isset($_GET['renkaat']))
+                    else
                     {
-                            $renkaat = $_GET['renkaat'];
-                            $sqlvalittu = "$type_option AND koko = '$renkaat' $sort_option";
-                            
-                            echo $sqlvalittu;
-
-                            $query_run = mysqli_query($con, $sqlvalittu);
-
-                                if(mysqli_num_rows($query_run) > 0)
-                                {
-                                    foreach($query_run as $row)
-                                    {
-                                        ?>
-                                            <tr>
-                                                <td><?= $row['Merkki'];?></td>
-                                                <td><?= $row['Malli'];?></td>
-                                                <td><?= $row['Tyyppi'];?></td>
-                                                <td><?= $row['Koko'];?></td>
-                                                <td><?= $row['Hinta'];?></td>
-                                            </tr>
-                                        <?php
-                                    }
-                                }
-                                else
-                                {
-                                    echo "Ei tuloksia hakuvaihtoehdoilla";
-                                }
-                            
-                    }    
-                    ?>
-                    </tbody>
-                </table>
+                        echo "Ei tuloksia hakuvaihtoehdoilla!";
+                    }
+                }    
+        ?>
+                </tbody>
+            </table>
                
         
     <!-- mitä -->
