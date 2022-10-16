@@ -40,6 +40,8 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
         <br>
         <h1>Mustapään Auto Oy</h1>
 
+            <div class="logo"></div>
+
             <div class="yhteystiedot">
                 <ul> Yhteystiedot
                     <li>Mustapään Auto Oy</li>
@@ -48,7 +50,9 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
                     <li>Puh. 040-7128158</li>
                     <li>email. myyntimies@mustatrenkaat.net</li>
                 </ul>
+                
             </div>
+            
         <h2>Valitse haluamasi renkaat alta</h2>
         <form action="" method="GET">
         <div class="container">
@@ -89,7 +93,8 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
                     <option value="Kaikki" <?php if(isset($_GET['type']) && $_GET['type'] == "Kaikki") {echo "selected"; } ?>>Kaikki</option>
                     <option value="Kesä" <?php if(isset($_GET['type']) && $_GET['type'] == "Kesä") {echo "selected"; } ?>>Kesä</option>
                     <option value="Talvi" <?php if(isset($_GET['type']) && $_GET['type'] == "Talvi") {echo "selected"; } ?>>Talvi</option>
-                </select> <br>
+                </select> 
+                <br>
                 <label for="renkaat">Rengaskoko</label>
                 <select name="renkaat" id="renkaat">
                     <option selected="selected" value="index0" >Valitse</option>
@@ -146,60 +151,57 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
                 // }
             ?>
             <div id="tulostaulu">
-                <table class="taulu">
-                    <thead>
-                        <tr>
-                            <th>Merkki</th>
-                            <th>Malli</th>
-                            <th>Tyyppi</th>
-                            <th>Koko</th>
-                            <th>Hinta</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-            <?php
-                    if(isset($_GET['renkaat']))
-                    {
-                        $renkaat = $_GET['renkaat'];
-
-                        $sqlvalittu = "$type_option AND koko = '$renkaat' $sort_option";
-                        //echo $sqlvalittu;
-                        $query_run = mysqli_query($con, $sqlvalittu);
-
-                        if(mysqli_num_rows($query_run) > 0)
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Merkki</th>
+                                <th>Malli</th>
+                                <th>Tyyppi</th>
+                                <th>Koko</th>
+                                <th>Hinta</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        if(isset($_GET['renkaat']))
                         {
-                            foreach($query_run as $row)
+                            $renkaat = $_GET['renkaat'];
+
+                            $sqlvalittu = "$type_option AND koko = '$renkaat' $sort_option";
+                            //echo $sqlvalittu;
+                            $query_run = mysqli_query($con, $sqlvalittu);
+
+                            if(mysqli_num_rows($query_run) > 0)
                             {
-                                ?>
-                                    <tr>
-                                        <td><?= $row['Merkki'];?></td>
-                                        <td><?= $row['Malli'];?></td>
-                                        <td><?= $row['Tyyppi'];?></td>
-                                        <td><?= $row['Koko'];?></td>
-                                        <td><?= $row['Hinta'];?></td>
-                                    </tr>
-                                <?php
+                                foreach($query_run as $row)
+                                {
+                                    ?>
+                                        <tr>
+                                            <td><?= $row['Merkki'];?></td>
+                                            <td><?= $row['Malli'];?></td>
+                                            <td><?= $row['Tyyppi'];?></td>
+                                            <td><?= $row['Koko'];?></td>
+                                            <td><?= $row['Hinta'];?></td>
+                                        </tr>
+                                    <?php
+                                }
                             }
-                        }
-                        else
-                        {
-                            echo "Ei tuloksia hakuvaihtoehdoilla!";
-                        }
-                    }    
-            ?>
-                    </tbody>
-                </table>
+                            else
+                            {
+                                echo "Ei tuloksia hakuvaihtoehdoilla!";
+                            }
+                        }    
+                        ?>
+                        </tbody>
+                    </table>
             </div>
         </div>       
         
-    <!-- mitä -->
-    <!-- video alla -->
+     <!-- video alla -->
         </form>
         <h2>Alla olevasta videosta näet miten voit itse vaihtaa renkaan</h2>
         <div class="video">
-
             <iframe width="420" height="345" src="https://www.youtube.com/embed/89rghWSBFgE" title="How to change a tyre" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div> 
-
     </body>
 </html>

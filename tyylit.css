@@ -1,16 +1,29 @@
 body{
-    background-color: #454c53;
+    background-color: #023059;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     color:#070707;
     /* background-image: url("https://i.ibb.co/82VK0TJ/arseny-togulev-x-TXIAVRI3r-A-unsplash.jpg"); */
 }
 .yhteystiedot{
     background-color: #012840;
-    /* text-shadow: 1px 1px 1px white; */
+    color:#F205B3;
+    text-shadow: 1px 1px 1px black;
     width: 330px;
     height: 160px;
-    border: 5px solid #023059; 
+    border: 5px solid #023059;
+    position:relative;
 }
+
+
+.logo{
+    background-image: url("https://i.ibb.co/2s4vr0C/logo-dark.png");
+    position:absolute; left:42%; top:105px;
+    height:auto;
+    width:300px;
+    height: 150px;
+}
+
+
 
 .yhteystiedot ul{
     font-family: 'Racing Sans One', sans-serif;
@@ -26,16 +39,21 @@ h1, h2{
     margin: auto;
     background-color: #F205B3;
     font-family: 'Racing Sans One', sans-serif;
+    border: 2px solid #000000;
 }
 
 .container{
-    
+    border-radius:1cm;
+    border: 2px solid #F205B3;
+    max-width: 600px;
     font-size: 14px;
     margin:auto;
     text-align: center;
-    background-color: #F205B3;
-
+    background-color: #034001;
+    padding-bottom: 10px;
+    padding-top:10px;
 }
+
 
 #tulostaulu{
     border-collapse: collapse;
@@ -43,15 +61,24 @@ h1, h2{
     margin: 25px auto;
     margin-left: auto;
     margin-right: auto;
+    border-radius: 50%;
 }
 
 #tulostaulu table, th, td{
-    color:#034001;
-    border: 1px solid #034001;
+    border: 2px solid;
+
+}
+
+#tulostaulu table{
+    width: 25em;
+    margin: 25px auto;
+    margin-left: auto;
+    margin-right: auto;
 
 }
 
 .video{
+    padding-top:10px;
     display: flex;
     align-items: center;
     justify-content: center;
