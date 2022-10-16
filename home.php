@@ -37,74 +37,86 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
         <script src="renkaatscript.js" defer></script>
         <link rel="stylesheet" href="tyylit.css">
         <link href="http://fonts.cdnfonts.com/css/racing-sans-one" rel="stylesheet">
-
     </head>
 
     <body>
-
         <header>Mustapään Auto Oy</header>
         <h1>Mustapään Auto Oy</h1>
-        <div class="yhteystiedot">
-            <ul>
-                <li>Mustapään Auto Oy</li>
-                <li>Mustat Renkaat</li>
-                <li>Kosteenkatu 1, 86300 Oulainen</li>
-                <li>Puh. 040-7128158</li>
-                <li>email. myyntimies@mustatrenkaat.net</li>
-            </ul>
-        </div>
+
+            <div class="yhteystiedot">
+                <ul>
+                    <li>Mustapään Auto Oy</li>
+                    <li>Mustat Renkaat</li>
+                    <li>Kosteenkatu 1, 86300 Oulainen</li>
+                    <li>Puh. 040-7128158</li>
+                    <li>email. myyntimies@mustatrenkaat.net</li>
+                </ul>
+            </div>
 
         <form action="" method="GET">
-
-            <?php 
-            //HAKEE VALINTALISTAN VALITUN KOON
-            $valittu_valintalistan_koko = "EI VALINTAA";
-            if(isset($_GET['renkaat']))
-            {
-                //echo "ylempi" . $valittu_valintalistan_koko = $_GET['renkaat'];
-
-                if($_GET['renkaat'] == 'asd'){
-                    $valittu_valintalistan_koko = "test";
-                    //echo $valittu_valintalistan_koko;
-                }
-                else{
-                        $valittu_valintalistan_koko = $_GET['renkaat'];
-                   
-                }
+        <?php 
+        //HAKEE VALINTALISTAN VALITUN KOON
+        $valittu_valintalistan_koko = "EI VALINTAA";
+        if(isset($_GET['renkaat']))
+        {
+            if($_GET['renkaat'] == 'index0'){
+                $valittu_valintalistan_koko = "index0";
             }
-            ?>
+            else
+            {
+                    $valittu_valintalistan_koko = $_GET['renkaat'];
+            }
+        }
+        ?>
 
+        <?php
+                $type_option = "";
+                    if(isset($_GET['type'])){
+                        if($_GET['type'] == "Kesä")
+                        {
+                            $type_option = "SELECT * FROM renkaat WHERE tyyppi = 'kesä'";
+                        }
+                        elseif($_GET['type'] == "Talvi"){
+                            $type_option = "SELECT * FROM renkaat WHERE tyyppi IN ('Nasta','Kitka')";
+                        }
+                        elseif($_GET['type'] == "Kaikki"){
+                            $type_option = "SELECT * FROM renkaat WHERE tyyppi IN ('Kesä','Nasta','Kitka')";
+                        }
+                    }
+                    //echo $type_option;
+        ?>
 
-
+                    <select name="type">
+                    <option value="Kaikki" <?php if(isset($_GET['type']) && $_GET['type'] == "Kaikki") {echo "selected"; } ?>>Kaikki</option>
+                    <option value="Kesä" <?php if(isset($_GET['type']) && $_GET['type'] == "Kesä") {echo "selected"; } ?>>Kesä</option>
+                    <option value="Talvi" <?php if(isset($_GET['type']) && $_GET['type'] == "Talvi") {echo "selected"; } ?>>Talvi</option>
+                    </select>
 
             <select name="renkaat" id="renkaat">
-                <option selected="selected" value="test" >Valitse</option>
-                    <?php
-                    foreach($kaikki_koot as $valinta) { ?>
-                    <option value="<?php echo $valinta['Koko'] ?>" <?php if(isset($_GET['renkaat']) && $_GET['renkaat'] == $valinta['Koko']) {echo "selected"; } ?> > <?php echo $valinta['Koko']?>  </option>
+                <option selected="selected" value="index0" >Valitse</option>
+                <?php foreach($kaikki_koot as $valinta) { ?>
+                <option value="<?php echo $valinta['Koko'] ?>" <?php if(isset($_GET['renkaat']) && $_GET['renkaat'] == $valinta['Koko']){echo"selected";}?>><?php echo $valinta['Koko']?></option>
                     <?php
                     } ?>
-                    </select> 
-                
-                <br>
-                <?php
-                            $sort_option = "";
-                                if(isset($_GET['sort'])){
-                                    if($_GET['sort'] == "a-z")
-                                    {
-                                        $sort_option = "ORDER BY merkki ASC";
-                                    }
-                                    elseif($_GET['sort'] == "z-a"){
-                                        $sort_option = "ORDER BY merkki DESC";
-                                    }
-                                    elseif($_GET['sort'] == "Kallein ensin"){
-                                        $sort_option = "ORDER BY hinta DESC";
-                                    }
-                                    elseif($_GET['sort'] == "Halvin ensin"){
-                                        $sort_option = "ORDER BY hinta ASC";
-                                    }
-                                }
-                        echo $sort_option;
+            </select> 
+            <?php
+                $sort_option = "";
+                    if(isset($_GET['sort'])){
+                        if($_GET['sort'] == "a-z")
+                        {
+                            $sort_option = "ORDER BY merkki ASC";
+                        }
+                        elseif($_GET['sort'] == "z-a"){
+                            $sort_option = "ORDER BY merkki DESC";
+                        }
+                        elseif($_GET['sort'] == "Kallein ensin"){
+                            $sort_option = "ORDER BY hinta DESC";
+                        }
+                        elseif($_GET['sort'] == "Halvin ensin"){
+                            $sort_option = "ORDER BY hinta ASC";
+                        }
+                    }
+                    //echo $sort_option;
                 ?>
                 </select>
                 <select name="sort">
@@ -125,40 +137,36 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
                         </tr>
                     </thead>
                     <tbody>
-
                     <?php
                     if(isset($_GET['renkaat']))
                     {
                             $renkaat = $_GET['renkaat'];
+                            $sqlvalittu = "$type_option AND koko = '$renkaat' $sort_option";
                             
-                            $sqlvalittukoko = "SELECT * FROM renkaat WHERE koko = '$renkaat' $sort_option";
-                            
-                            
-                            echo $sqlvalittukoko;
-                            echo "<br>";
-                            echo "ylhäällä query---------------testipalikka---------------- <br>";
+                            echo $sqlvalittu;
 
-                            $query_run = mysqli_query($con, $sqlvalittukoko);
+                            $query_run = mysqli_query($con, $sqlvalittu);
 
-                            if(mysqli_num_rows($query_run) > 0)
-                            {
-                                foreach($query_run as $row)
+                                if(mysqli_num_rows($query_run) > 0)
                                 {
-                                    ?>
-                                        <tr>
-                                            <td><?= $row['Merkki'];?></td>
-                                            <td><?= $row['Malli'];?></td>
-                                            <td><?= $row['Tyyppi'];?></td>
-                                            <td><?= $row['Koko'];?></td>
-                                            <td><?= $row['Hinta'];?></td>
-                                        </tr>
-                                    <?php
+                                    foreach($query_run as $row)
+                                    {
+                                        ?>
+                                            <tr>
+                                                <td><?= $row['Merkki'];?></td>
+                                                <td><?= $row['Malli'];?></td>
+                                                <td><?= $row['Tyyppi'];?></td>
+                                                <td><?= $row['Koko'];?></td>
+                                                <td><?= $row['Hinta'];?></td>
+                                            </tr>
+                                        <?php
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                echo "No record found";
-                            }
+                                else
+                                {
+                                    echo "Ei tuloksia hakuvaihtoehdoilla";
+                                }
+                            
                     }    
                     ?>
                     </tbody>
