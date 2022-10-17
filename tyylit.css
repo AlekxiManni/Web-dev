@@ -1,8 +1,7 @@
 body{
-    background-color: #023059;
+    background-color: #012326;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     color:#070707;
-    /* background-image: url("https://i.ibb.co/82VK0TJ/arseny-togulev-x-TXIAVRI3r-A-unsplash.jpg"); */
 }
 .yhteystiedot{
     background-color: #012840;
@@ -11,19 +10,9 @@ body{
     width: 330px;
     height: 160px;
     border: 5px solid #023059;
-    position:relative;
+    margin-block-end: auto;
+    margin-block-start: auto;
 }
-
-
-.logo{
-    background-image: url("https://i.ibb.co/2s4vr0C/logo-dark.png");
-    position:absolute; left:42%; top:105px;
-    height:auto;
-    width:300px;
-    height: 150px;
-}
-
-
 
 .yhteystiedot ul{
     font-family: 'Racing Sans One', sans-serif;
@@ -37,23 +26,55 @@ body{
 h1, h2{
     text-align: center;
     margin: auto;
-    background-color: #F205B3;
+    background-color: #012840;
     font-family: 'Racing Sans One', sans-serif;
-    border: 2px solid #000000;
+    color:#F205B3;
+    text-shadow: 2px 2px 2px #070707;
 }
 
+h3{
+    text-align: center;
+    margin: auto;
+    font-family: 'Racing Sans One', sans-serif;
+    color:#012840;
+    text-shadow: 1px 1px 1px white;
+
+}
 .container{
     border-radius:1cm;
     border: 2px solid #F205B3;
-    max-width: 600px;
+    max-width: 550px;
     font-size: 14px;
     margin:auto;
     text-align: center;
-    background-color: #034001;
+    background-color: #012840;
     padding-bottom: 10px;
     padding-top:10px;
+    width: 550px;
 }
 
+.label{
+    color: red;
+    position:relative;
+    align-items:flex-end;
+    font-size: 14px;
+}
+
+.selectlist{
+    width: 10em;
+    height: 30px;
+    margin: 1px auto;
+    border-collapse: collapse;
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+    text-align: center;
+    text-align-last: right;
+    padding-right: 29px;
+    background-color: #023059;
+    color: #F205B3;
+    text-shadow: 1px 1px 1px #070707;
+}
 
 #tulostaulu{
     border-collapse: collapse;
@@ -61,7 +82,11 @@ h1, h2{
     margin: 25px auto;
     margin-left: auto;
     margin-right: auto;
-    border-radius: 50%;
+    background-color: #012840;
+    font-size: 14px;
+    max-height: fit-content;
+    color: white;
+    text-shadow: 1px 1px 1px #070707;
 }
 
 #tulostaulu table, th, td{
@@ -84,6 +109,63 @@ h1, h2{
     justify-content: center;
 }
 
+.flex-container { 
+    display: -webkit-flex;
+   display: flex;
+   -webkit-flex-direction: row ;
+   flex-direction: row;
+   -webkit-align-items: center;
+   align-items: center;
+   -webkit-justify-content: center;
+   justify-content: center;
+}
+
+.kartta{
+    background-image: url("https://i.ibb.co/80J5Ltd/MUSTAT-RENKAAT-KARTTA.jpg");
+    border:1px solid #006CE5;
+    width:400px;
+    height: 200px;
+    margin-block-end: auto;
+    margin-block-start: auto;
+    margin-right:200px;
+}
+
+.logo{
+    background-image: url("https://i.ibb.co/0mjqg3J/logo-light.jpg");
+    border:1px solid #006CE5;
+    width: 300px;
+    height: 150px;
+    margin-block-end: auto;
+    margin-block-start: auto;
+    margin-right:200px;
+}
+
+.kesamainos{
+    background-image: url("https://i.ibb.co/NrXTKY3/jairph-7p-T4-LWf-ORS0-unsplash.jpg");
+    width:420px;
+    height:560px;
+    
+    text-align: center;
+    margin-block-end: auto;
+    margin-block-start: auto;
+    margin-left: 100px;
+    border-radius: 5%;
+}
+
+.talvimainos{
+    background-image: url("https://i.ibb.co/3RKvh0y/pexels-pixabay-416728.jpg");
+    width:420px;
+    height:330px;
+    text-align: center;
+    margin-block-end: auto;
+    margin-block-start: auto;
+    margin-right: 100px;
+    border-radius: 5%;
+    
+}
+
+
+
 .varit{
     color: #F205B3;
     color: #012326;
@@ -91,3 +173,4 @@ h1, h2{
     color: #012840;
     color: #023059;
 }
+
