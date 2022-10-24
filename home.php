@@ -1,17 +1,17 @@
 <?php  
-#otetaan yhteys palvelimeen ja tietokantaan
-$palvelin= "localhost";  
-$kayttajanimi= "root";  
-$salasana= "";  
-$tietokanta= "mustatrenkaat"; 
-$portti="3306"; 
-$con = mysqli_connect($palvelin, $kayttajanimi, $salasana, $tietokanta, $portti);  
+#otetaan yhteys palvelimeen ja tietokantaan/creating a connection to server and database
+$server= "localhost";  
+$username= "root";  
+$password= "";  
+$database= "mustatrenkaat"; 
+$port="3306"; 
+$con = mysqli_connect($server, $username, $password, $database, $port);  
 ?>
 
 <?php
-#tehdään rengashaku kokoluokittain
-$sql_koko = "SELECT * FROM renkaat GROUP BY koko";
-$kaikki_koot = mysqli_query($con,$sql_koko);
+#tehdään rengashaku kokoluokittain/create a query for all tyre sizes
+$sql_tyre_size = "SELECT * FROM renkaat GROUP BY koko";
+$all_sizes = mysqli_query($con,$sql_tyre_size);
 ?>
 
 <!-- TEHTÄVÄNANTO -->
@@ -42,7 +42,7 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
         <br>
         <div class="flex-container">
                 <div class="kartta"></div>
-                <div class="logo"></div>
+                <div id="logo" class="logo"></div>
                 <div class="yhteystiedot">
                 <ul> Yhteystiedot
                         <li>Mustapään Auto Oy</li>
@@ -68,15 +68,15 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
             <div class="container">
                 <?php 
                 //HAKEE VALINTALISTAN VALITUN KOON
-                $valittu_valintalistan_koko = "EI VALINTAA";
+                $chosen_size_option = "EI VALINTAA";
                     if(isset($_GET['renkaat']))
                     {
                         if($_GET['renkaat'] == 'index0'){
-                            $valittu_valintalistan_koko = "index0";
+                            $chosen_size_option = "index0";
                         }
                         else
                         {
-                                $valittu_valintalistan_koko = $_GET['renkaat'];
+                                $chosen_size_option = $_GET['renkaat'];
                         }
                     }
                 ?>
@@ -108,7 +108,7 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
                     <label class="label" for="renkaat">Rengaskoko</label>
                     <select class="selectlist" name="renkaat" id="renkaat">
                         <option selected="selected" value="index0" >Valitse</option>
-                        <?php foreach($kaikki_koot as $valinta) { ?>
+                        <?php foreach($all_sizes as $valinta) { ?>
                         <option value="<?php echo $valinta['Koko'] ?>" <?php if(isset($_GET['renkaat']) && $_GET['renkaat'] == $valinta['Koko']){echo"selected";}?>><?php echo $valinta['Koko']?></option>
                         <?php
                         } ?>
@@ -142,7 +142,7 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
                         <option value="z-a" <?php if(isset($_GET['sort']) && $_GET['sort'] == "z-a") {echo "selected"; } ?>>Merkki (Z-A)</option>
                     </select>
                     <br>
-                    <input type="submit" name="submit"  id="submit" value="OK">
+                    <input type="submit" name="submit"  id="submit" value="Haku">
                     
                
                 <div id="tulostaulu">
@@ -160,11 +160,11 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
                             <?php
                             if(isset($_GET['renkaat']))
                             {
-                                $renkaat = $_GET['renkaat'];
+                                $tyres = $_GET['renkaat'];
 
-                                $sqlvalittu = "$type_option AND koko = '$renkaat' $sort_option";
-                                //echo $sqlvalittu;
-                                $query_run = mysqli_query($con, $sqlvalittu);
+                                $sql_chosen = "$type_option AND koko = '$tyres' $sort_option";
+                                //echo $sql_chosen;
+                                $query_run = mysqli_query($con, $sql_chosen);
                                 if(mysqli_num_rows($query_run) > 0)
                                 {
                                     if(isset($_GET['renkaat'])){
@@ -192,6 +192,7 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
                             ?>
                             </tbody>
                         </table>
+                        
                 </div>
             </div>
             <div class="talvimainos">
@@ -200,13 +201,11 @@ Lisäksi sivuilta pitää löytyä seuraavat tiedot: yrityksen perustiedot, toim
                 </div>       
         </div>
         <br>
-     <!-- video alla -->
         </form>
-        <h2>Alla olevasta videosta näet miten voit itse vaihtaa renkaan</h2>
-            
-        <div class="video">
-            <iframe width="720" height="345" src="https://www.youtube.com/embed/89rghWSBFgE" title="How to change a tyre" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div> 
+            <h2>Alla olevasta videosta näet miten voit itse vaihtaa renkaan</h2>
+                <div class="video">
+                    <iframe width="720" height="345" src="https://www.youtube.com/embed/89rghWSBFgE" title="How to change a tyre" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div> 
 
     </body>
 </html>

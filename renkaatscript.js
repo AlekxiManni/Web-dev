@@ -1,26 +1,18 @@
-const painike = document.getElementById("submit")
-const kokovalinta = document.getElementById("kokovalinta")
-var renkaat;
-var koko;
+//Added some function on the page logo, while the mouse is over the company logo, logos theme changes to dark. While mouse is not over the logo, logo stays light
 
-    document.getElementById("renkaat").addEventListener('change' , function(e) {
-    koko = (e.target.options[e.target.selectedIndex].text)
-    // vaihdaKoko();
-    
+document.getElementById("logo").addEventListener('mouseover' , function(e) {
+changeLogoDark();
+})
+
+function changeLogoDark(){
+      document.getElementById("logo").style.backgroundImage = "url('https://i.ibb.co/2s4vr0C/logo-dark.png')"
+
+}
+
+document.getElementById("logo").addEventListener('mouseout' , function(e) {
+    changeLogoLight();
     })
 
-
-// function vaihdaKoko(){
-//     var tulos = "SELECT Merkki,Malli,Tyyppi,Koko,Hinta FROM renkaat WHERE koko = " + "'" + koko + "'";
-
-//     kokovalinta.value = tulos;
-
-//     if(tulos === "SELECT Merkki,Malli,Tyyppi,Koko,Hinta FROM renkaat WHERE koko = 'Valitse'" ){
-//         painike.disabled = true;
-//     }
-//     else{
-//         painike.disabled = false;
-//     }
-    
-// }
-
+function changeLogoLight(){
+    document.getElementById("logo").style.backgroundImage = "url('https://i.ibb.co/0mjqg3J/logo-light.jpg')"
+}

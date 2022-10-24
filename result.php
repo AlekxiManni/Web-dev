@@ -1,14 +1,14 @@
+<!-- This page has no function right now -->
+
 <?php
 #otetaan yhteys palvelimeen ja tietokantaan
-$palvelin= "localhost";  
-$kayttajanimi= "root";  
-$salasana= "";  
-$tietokanta= "mustatrenkaat"; 
-$portti="3306"; 
-$con = mysqli_connect($palvelin, $kayttajanimi, $salasana, $tietokanta, $portti);
-
+$server= "localhost";  
+$username= "root";  
+$password= "";  
+$database= "mustatrenkaat"; 
+$port="3306"; 
+$con = mysqli_connect($server, $username, $password, $database, $port);  
 ?>
-
 
 
 <!DOCTYPE html>
@@ -24,42 +24,6 @@ $con = mysqli_connect($palvelin, $kayttajanimi, $salasana, $tietokanta, $portti)
 
 </head>
 <body>
-    <form>
-        <p >Merkki, Malli, Tyyppi, Koko, Hinta</p>
-
-        <?php
-        
-            $valittukoko = $_POST['kokovalinta'];
-            #$valittukoko_haku = mysqli_query($con,$valittukoko);
-            
-            $sql = $valittukoko;
-            $result = mysqli_query($con, $sql); // First parameter is just return of "mysqli_connect()" function
-            echo "<br>";
-            echo "<table border='1'><caption>Merkki,Malli, Tyyppi, Koko, Hinta</caption>";
-            while ($row = mysqli_fetch_assoc($result)) { // Important line !!! Check summary get row on array ..
-                echo "<tr>";
-                foreach ($row as $field => $value) { // I you want you can right this line like this: foreach($row as $value) {
-                    echo "<td>" . $value . "</td>"; // I just did not use "htmlspecialchars()" function. 
-                }
-                echo "</tr>";
-            }
-            echo "</table>";
-        ?>
-
-        
-    </form>
-    <form action="" method="GET">
-    
-        <select name="sort_numeric">Valitse
-            <option value="halvin" <?php if(isset($_GET['sort_numeric']) && $_GET['sort_numeric'] == "halvin") { echo "selected"; } ?> >Halvin ensin</option>
-            <option value="kallein" <?php if(isset($_GET['sort_numeric']) && $_GET['sort_numeric'] == "kallein") { echo "selected"; } ?> >Kallein ensin</option>
-        </select>
-        <button type="submit">Valitse</button>
-
-    </form>
-    
-
-
 
 </body>
 </html>

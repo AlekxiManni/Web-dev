@@ -54,10 +54,11 @@ h3{
 }
 
 .label{
-    color: red;
+    color: #F205B3;
     position:relative;
     align-items:flex-end;
     font-size: 14px;
+    text-shadow: 1px 1px 1px black;
 }
 
 .selectlist{
@@ -74,6 +75,7 @@ h3{
     background-color: #023059;
     color: #F205B3;
     text-shadow: 1px 1px 1px #070707;
+    border-radius: 10px;
 }
 
 #tulostaulu{
@@ -87,11 +89,21 @@ h3{
     max-height: fit-content;
     color: white;
     text-shadow: 1px 1px 1px #070707;
+    
 }
 
 #tulostaulu table, th, td{
     border: 2px solid;
+    border-radius: 10px;
+    font-family: 'Racing Sans One', sans-serif;
+    color: white;
+    text-shadow: 1px 1px 1px #070707;
+}
 
+#tulostaulu td{
+    border: 2px solid;
+    border-radius: 1px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 #tulostaulu table{
@@ -100,6 +112,23 @@ h3{
     margin-left: auto;
     margin-right: auto;
 
+}
+
+#submit{
+    width: 10em;
+    margin: 1px auto;
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+    text-align: center;
+    text-align-last: right;
+    padding-right: 50px;
+    background-color: #023059;
+    color: #F205B3;
+    text-shadow: 1px 1px 1px #070707;
+    border-radius: 10px;
+    text-align: center;
+    font-family: 'Racing Sans One', sans-serif;
 }
 
 .video{
@@ -122,7 +151,6 @@ h3{
 
 .kartta{
     background-image: url("https://i.ibb.co/80J5Ltd/MUSTAT-RENKAAT-KARTTA.jpg");
-    border:1px solid #006CE5;
     width:400px;
     height: 200px;
     margin-block-end: auto;
@@ -132,7 +160,6 @@ h3{
 
 .logo{
     background-image: url("https://i.ibb.co/0mjqg3J/logo-light.jpg");
-    border:1px solid #006CE5;
     width: 300px;
     height: 150px;
     margin-block-end: auto;
@@ -165,12 +192,11 @@ h3{
 }
 
 
-
-.varit{
+/* .varit{ colour palette what we were able to use on this school assignment
     color: #F205B3;
     color: #012326;
     color: #034001;
     color: #012840;
     color: #023059;
-}
+} */
 
